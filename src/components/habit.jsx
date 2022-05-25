@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { memo } from 'react';
 
-const Habit = (props) => {
+const Habit = memo((props) => {
   const handleIncrement = () => {
     props.onIncrement(props.habit);
   };
@@ -28,6 +28,6 @@ const Habit = (props) => {
       </button>
     </li>
   );
-};
+});
 
 export default Habit;

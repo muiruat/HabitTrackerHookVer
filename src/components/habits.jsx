@@ -1,24 +1,39 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Habit from './habit';
 
-const Habits = (props) => {
+const Habits = () => {
   const [habits, setHabits] = useState([
     { id: 1, name: 'Reading', count: 0 },
     { id: 2, name: 'Running', count: 0 },
     { id: 3, name: 'Coding', count: 0 },
   ]);
 
-  const handleIncrement = (habit) => {
-    console.log(`handleIncrement: ${habit.name}`);
-  };
+  const handleIncrement = useCallback((habit) => {
+    setHabits((habits) =>
+      habits.map((item) => {
+        if (item.id === habit.id) {
+          return { ...habit, count: habit.count + 1 };
+        }
+        return item;
+      })
+    );
+  }, []);
 
-  const handleDecrement = (habit) => {
-    console.log(`handleDecrement: ${habit.name}`);
-  };
+  const handleDecrement = useCallback((habit) => {
+    setHabits((habits) =>
+      habits.map((item) => {
+        if (item.id === habit.id) {
+          const count = habit.count - 1;
+          return { ...habit, count: count < 0 ? 0 : count };
+        }
+        return item;
+      })
+    );
+  }, []);
 
-  const handleDelete = (habit) => {
-    console.log(`handleDelete: ${habit.name}`);
-  };
+  const handleDelete = useCallback((habit) => {
+    setHabits((habits) => habits.filter((item) => item.id !== habit.id));
+  }, []);
 
   return (
     <ul>
