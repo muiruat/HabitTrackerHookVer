@@ -41,7 +41,7 @@ const App = () => {
     setHabits((habits) => habits.filter((item) => item.id !== habit.id));
   }, []);
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setHabits((habits) =>
       habits.map((habit) => {
         if (habit.count !== 0) {
@@ -50,7 +50,7 @@ const App = () => {
         return habit;
       })
     );
-  };
+  }, []);
 
   return (
     <>
